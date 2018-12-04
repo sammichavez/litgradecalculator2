@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grade Calculator</title>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="stylesheet.css">
+
+</head>
+<H1> Welcome To:</H1>
+<H1> Your Lit Grade Calculator </H1>
+
+<body>
+<div class="w3-container w3-white w3-center"><h1 class="w3-xxlarge w3-carter">Grade Calculator</h1></div>
+<div id="sect1">
+<table border=”1” cellspacing=”2” cellpadding=”5”>
+    <table id="table1">
+        <tr class="w3-carter">
+            <th>Homework Points</th>
+            <th>Weight</th>
+        </tr>
+        <tr>
+            <td><input type="text" id="ipoints" placeholder="30,60,90"></td>
+            <td><input type="text" id="iweight" placeholder="20%"></td>
+        </tr>
+    </table>
+
+    <input type="text" id="catName" placeholder="Tests, HW, Classwork...">
+    <button onclick="addRow()" class="w3-button w3-xlarge w3-circle w3-light-green" id="addButton">+</button>
+    <br>
+    <br>
+    <button onclick="calculateCurrentGrade()" class="w3-button w3-white w3-border w3-border-light-green w3-round-xlarge w3-xlarge"> Right now you have a</button>
+    <br>
+    <span id="grade"></span>
+    <div>
+    <div id="sect2">
+    <H1 class="w3-xxlarge w3-carter w3-center w3-panel w3-topbar w3-bottombar w3-border-light-green w3-white"> Lit Finals Calculator</H1>
+
+    <table id="table2">
+        <tr class="w3-carter w3-center">
+            <td>Desired final LIT grade</td>
+            <td>Final LIT weight</td>
+        </tr>
+        <tr>
+            <td><input type="text" id="wanted" placeholder="20,40,90"></td>
+            <td><input type="text" id="finalweight" placeholder="60"></td>
+        </tr>
+    </table>
+
+        <br>
+        <button onclick="calculateGradeNeeded()" class="w3-button w3-white w3-border w3-border-light-green w3-round-xlarge w3-xlarge">Calculate  LIT grade needed!</button>
+        <br>
+        <span id="userNeed">You need to get a <span id="needed">___</span>% to get a sauce desired grade</span>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
