@@ -1,51 +1,71 @@
 var count = 0;
 
-function calculateCurrentGrade(){
-    var cat1 = document.getElementById('ipoints').value;
-    var cat1num = convertArrayStringToNumber(cat1);
-    var cat1avg = averageArray(cat1num);
-    var cat1weight = parseInt(document.getElementById('iweight').value);
-    var cat1final = cat1avg * (cat1weight / 100 );
+function calculateCurrentGrade() {
+    var hw = document.getElementById('hwPoints').value;
+    var hwW = parseInt(document.getElementById('hwWeight').value);
+    var cl = document.getElementById('clPoints').value;
+    var clW = parseInt(document.getElementById('clWeight').value);
+    var par = document.getElementById('parPoints').value;
+    var parW = parseInt(document.getElementById('parWeight').value);
+    var tes = document.getElementById('tesPoints').value;
+    var tesW = parseInt(document.getElementById('tesWeight').value);
 
-    var constant = 0;
-    var totalWeight = 0;
+    var hwA = convertArrayStringToNumber(hw);
+    var clA = convertArrayStringToNumber(cl);
+    var parA = convertArrayStringToNumber(par);
+    var tesA = convertArrayStringToNumber(tes);
 
-    if(count !== 0){
-        for(var i = 0; i < count; i++){
-            var cat = document.getElementById(i + "points").value;
-            var catnum = convertArrayStringToNumber(cat);
-            var catavg = averageArray(catnum);
-            var catweight = parseInt(document.getElementById(i + "weight").value);
-            constant += (catavg * (catweight / 100));
-            totalWeight += catweight;
-        }
+    var hwAv = averageArray(hwA);
+    var clAv = averageArray(clA);
+    var parAv = averageArray(parA);
+    var tesAv = averageArray(tesA);
+
+    var hwF = weightAndGrade(hwAv,hwW);
+    var clF = weightAndGrade(clAv,clW);
+    var parF = weightAndGrade(parAv,parW);
+    var tesF = weightAndGrade(tesAv,tesW);
+
+    var percentage = ( hwW + clW + parW + tesW);
+
+    var findingCurrent = hwF+clF+parF+tesF;
+    var current = (findingCurrent).toFixed(2);
+    var high = toHighWeight(percentage);
+    var low = toLowWeight(percentage);
+    //document.getElementById("high").innerHTML = high;
+    //document.getElementById("low").innerHTML = low;
+    if (high && low) {
+        document.getElementById("answer").innerHTML = current + "%";
     }
-    constant += cat1final;
-    totalWeight += cat1weight;
-    if(totalWeight === 100 && cat1.length > 1 && cat1weight > 0){
-        document.getElementById('grade').innerHTML = constant.toFixed(1) + "%";
-        return constant;
-    }else{
-        alert("Please make sure your total weight equals to 100 and both points and weight are filled in.");
-    }
+    return [current,high && low];
+}
+function calculateFinalGrade() {
+
+    var curr = calculateCurrentGrade();
+
+    var cal = curr[0];
+
+    if (curr[1])  {
+
+        var grade = parseInt(document.getElementById("wanted").value);
+        var final = parseInt(document.getElementById("finalWeight").value);
+        var fin = 1 - (final / 100);
+        var cur = fin * cal;
+        var finalGradeCal = (grade - cur) / (final / 100);
+        var fin2 = (finalGradeCal).toFixed(2);
+        document.getElementById("final").innerHTML = fin2;
+    }  
 }
 
-function calculateGradeNeeded(){
-    var cur = calculateCurrentGrade();
-    var desire = document.getElementById('wanted').value;
-    var weight = document.getElementById('finalweight').value;
-    parseInt(desire);
-    parseInt(weight);
-    weight = weight/100;
 
-    var needed = (desire - cur * (1 - weight)) / weight;
 
-    if(desire.length > 0 && weight > 0){
-        document.getElementById('needed').innerHTML = needed.toFixed(1);
-    }else{
-        alert("Please enter both a desire grade and weight into the finals calculator");
+
+function convertArrayStringToNumber (string){
+    var grades = string.split(",");
+
+    for(var i = 0; i < grades.length; i++){
+        grades[i] = parseInt(grades[i]);
     }
-
+    return grades;
 }
 
 function averageArray(array){
@@ -57,60 +77,23 @@ function averageArray(array){
     avg = avg / (array.length);
     return avg;
 }
+ function weightAndGrade(average,weight) {
+     var bean = average*(weight * .01)
+     return bean;
+ }
 
-function convertArrayStringToNumber(string){
-    var grades = string.split(",");
-
-    for(var i = 0; i < grades.length; i++){
-        grades[i] = parseInt(grades[i]);
+ function toHighWeight (percentage){
+    if(percentage > 100) {
+        alert("The total weight is higher than one hundred, please try again");
+        return false;
     }
-    return grades;
+    return true;
 }
+ function toLowWeight (percentage){
+     if(percentage < 100) {
+         alert("the total weight is lower than one hundred, please try again");
+         return false;
+     }
+    return true;
+ }
 
-function addRow() {
-    if(count <= 4){
-        var catName = document.getElementById('catName').value;
-
-        var labelRow = document.createElement('tr');
-        var valueRow = document.createElement('tr');
-
-
-        var col1= document.createElement('td');
-        var col2 = document.createElement('td');
-
-        var col3 = document.createElement('th');
-        var col4 = document.createElement('th');
-
-        var i1 = document.createElement('input');
-        var i2 = document.createElement('input');
-
-        if(catName.length >= 1){
-            col3.innerHTML = catName + " Points";
-            col4.innerHTML = "Weight";
-
-            i1.id = count + "points";
-            i2.id = count + "weight";
-
-            col1.appendChild(i1);
-            col2.appendChild(i2);
-
-            labelRow.appendChild(col3);
-            labelRow.appendChild(col4);
-
-            labelRow.setAttribute('class','w3-carter');
-
-            valueRow.appendChild(col1);
-            valueRow.appendChild(col2);
-
-            document.getElementById('table1').appendChild(labelRow);
-            document.getElementById('table1').appendChild(valueRow);
-            count++;
-        }else{
-            alert("Please enter a category name");
-        }
-
-
-    }else{
-        alert("Too many sauce refresh to restart");
-    }
-}

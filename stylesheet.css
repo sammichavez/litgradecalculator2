@@ -1,44 +1,34 @@
-H1 {
-    color: midnightblue ;
+
+h1{
     margin: auto;
     text-align: center;
     width: 50%;
     padding: 10px;
 }
+
 body{
-    color: midnightblue;
+    color: darkorange;
 
 }
 body {
-    background-color: beige;
+    background-color: black;
 }
 
 #sect1{
     margin: auto;
     text-align: center;
     width: 50%;
-    padding: 10px;
+    padding: 50px;
 }
 #table1{
     margin: auto;
     text-align: center;
     width: 50%;
-    padding: 10px;
+    padding: 50px;
 }
 #table2{
     margin: auto;
     text-align: center;
     width: 50%;
     padding: 10px;
-}
-#sect2{
-    margin: auto;
-    text-align: center;
-    width: 50%;
-    padding: 10px;
-}
-#foxName {
-    font-size: 10px;
-    margin-right: 5px;
-    margin-top: 20px;
 }
